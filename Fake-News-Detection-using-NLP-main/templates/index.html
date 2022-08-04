@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fake News Detection System</title>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Project</title>
+
+
+    <hr color="black">
+
+    <div>
+        <marquee>
+            Welcome to GMR insistute of technology,Rajam
+        </marquee>
+    </div>
+    <hr color="black">
+    <div class="mheading">
+        Fake News detection using Natural Language processing
+    </div>
+    <br>
+    <style>
+        .mheading {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        
+        .a1 {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .f1 {
+            align-items: center;
+            border: 1px solid;
+            width: 170px;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-right: 10px;
+            text-align: center;
+        }
+        
+        .f1.input {
+            font-size: 110px
+        }
+        
+        .tdetails {
+            text-align: center;
+            border: 1px solid;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: sans-serif;
+            background-color: #f1f1f1;
+        }
+        
+        .container .card .icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #dfe4eb;
+        }
+        
+        .container .card .icon .fa {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            color: #fff;
+        }
+        
+        .container .card .slide {
+            width: 300px;
+            height: 200px;
+            transition: 0.5s;
+        }
+        
+        .container .card .slide.slide1 {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            transition: .7s;
+            transform: translateY(100px);
+        }
+        
+        .container .card:hover .slide.slide1 {
+            transform: translateY(0px);
+        }
+        
+        .container .card .slide.slide2 {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: .8s;
+            transform: translateY(-100px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .container .card:hover .slide.slide2 {
+            transform: translateY(0);
+        }
+        
+        .container .card .slide.slide2::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 4px;
+            bottom: 15px;
+            left: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c73df;
+        }
+        
+        .container .card .slide.slide2 .content p {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #414141;
+        }
+        
+        .container .card .slide.slide2 .content h3 {
+            margin: 0 0 10px 0;
+            padding: 0;
+            font-size: 24px;
+            text-align: center;
+            color: #414141;
+        }
+        
+        .parent {
+            border: 1px solid black;
+            margin: 1rem;
+            padding: 2rem 2rem;
+            text-align: center;
+            align-items: baseline;
+        }
+        
+        .models {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 1rem 1rem;
+        }
+        
+        .accuracy {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 1rem 1rem;
+        }
+        
+        body {
+            background-color: rgb(215, 196, 196);
+        }
+        /* STYLES SPECIFIC TO FOOTER  */
+        
+        .footer {
+            width: 100%;
+            position: relative;
+            height: auto;
+            background-color: #070617;
+        }
+        
+        .footer .col {
+            width: 190px;
+            height: auto;
+            float: left;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            padding: 0px 20px 20px 20px;
+        }
+        
+        .footer .col h1 {
+            margin: 0;
+            padding: 0;
+            font-family: inherit;
+            font-size: 12px;
+            line-height: 17px;
+            padding: 20px 0px 5px 0px;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: normal;
+            text-transform: uppercase;
+            letter-spacing: 0.250em;
+        }
+        
+        .footer .col ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .footer .col ul li {
+            color: #999999;
+            font-size: 14px;
+            font-family: inherit;
+            font-weight: bold;
+            padding: 5px 0px 5px 0px;
+            cursor: pointer;
+            transition: .2s;
+            -webkit-transition: .2s;
+            -moz-transition: .2s;
+        }
+        
+        .social ul li {
+            display: inline-block;
+            padding-right: 5px !important;
+        }
+        
+        .footer .col ul li:hover {
+            color: #ffffff;
+            transition: .1s;
+            -webkit-transition: .1s;
+            -moz-transition: .1s;
+        }
+        
+        .clearfix {
+            clear: both;
+        }
+        
+        @media only screen and (min-width: 1280px) {
+            .contain {
+                width: 1200px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media only screen and (max-width: 1139px) {
+            .contain .social {
+                width: 1000px;
+                display: block;
+            }
+            .social h1 {
+                margin: 0px;
+            }
+        }
+        
+        @media only screen and (max-width: 950px) {
+            .footer .col {
+                width: 33%;
+            }
+            .footer .col h1 {
+                font-size: 14px;
+            }
+            .footer .col ul li {
+                font-size: 13px;
+            }
+        }
+        
+        @media only screen and (max-width: 500px) {
+            .footer .col {
+                width: 50%;
+            }
+            .footer .col h1 {
+                font-size: 14px;
+            }
+            .footer .col ul li {
+                font-size: 13px;
+            }
+        }
+        
+        @media only screen and (max-width: 340px) {
+            .footer .col {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="a1">
+        <fieldset>
+            <legend><b>NLP[Natural Language Processing]</b></legend>
+            <label> Natural language processing is a form of Artificial Intelligence based on construction equipment 
+                that can easily understand and respond to text or voice data in the same way as humans. With NLP, machines can 
+                even perform tasks with spoken or written text.Steps Involved in Natural Language processing are Data pre-processing,
+                Tokenization, stemming, Lemmatization and vectorization.Separation is the process of dividing a sentence into its own parts 
+                of a sentence, usually in line with punctuation.
+            </label>
+            <br><br>
+            <label>
+            <b>Tokenization:</b><br>Tokenization is the process of separating data into native language text into pieces, that is, 
+                smaller units called tokens. These tokens help to understand and develop the Natural Language Processing model.
+                <center>
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fmax%2F902%2F1*a9-NPYs-gBa2668C4WON3g.jpeg&f=1&nofb=1">
+                </center>
+            </label>
+            <br><br>
+            <label>
+                <b>Lemmatization:</b><br>Lemmatization is a method used to reduce tokens to a standard form i.e., the form of a root dictionary. 
+                This process looks at morphological analysis of words to translate words into a common form
+                <br><br>
+                <center>
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdeveloper.ibm.com%2Fdeveloper%2Fdefault%2Farticles%2Fa-deeper-look-at-the-syntax-api-feature-within-watson-nlu%2Fimages%2Ffigure2.png&f=1&nofb=1"height="200px" width="400">
+                    </center>
+            </label>
+            <br><br>
+            <label>
+            <b>Stemming:</b><br>Stemming is a form of reducing a word into its own vocabulary that is, the base of words. Stemming basically
+                removes a suffix from a word and cuts it into its root. This process uses a noun stem.Stemming techniques used by search engines
+                and chatbots to analyze word meanings to produce better results.
+                <center>
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimage.slidesharecdn.com%2Fnlp-150419035045-conversion-gate02%2F95%2Fnlp-14-638.jpg%3Fcb%3D1429436900&f=1&nofb=1" height="300px" width="400">
+                    </center>
+            </label>
+            <br><br>
+            <label>
+            <b>Stopwords:</b><br>Stop words are used to remove non-essential words, allowing applications to focus on keywords instead.
+                Its main function is to remove the common words that do not add much meaning.The stop words are not required in our project 
+                because they do not have a place to train or test data.
+                <center>
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.geeksforgeeks.org%2Fwp-content%2Fuploads%2FStop-word-removal-using-NLTK.png&f=1&nofb=1">
+                    </center>
+            </label>
+            <br><br>
+            <label> 
+            <b>Vectorization:</b>
+            <br>Vectorization jargon is an old method of converting input data from its raw format (i.e., text) into real number vectors which is a format supported by ML models. This approach has been around since the advent of computers, works wonders
+            in a variety of domains, and is now widely used in NLP.
+            
+            </label>
+        </fieldset>
+    </div>
+    <div class="parent">
+        <div class="models">
+            <div class="container">
+                <div class="card">
+                    <div class="slide slide1">
+                        <div class="content">
+                            <div class="icon">
+                                <br><br><br>
+                                <h2 align="center">Models </h2>
+                                <i class="fa fa-user-circle" aria-hidden="true">
+                            </i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide slide2">
+                        <div class="content">
+                            <p>SVM[Support Vector Machine]</p>
+                            <p>Naive Bayes</p>
+                            <p>BERT model</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accuracy">
+            <div class="container">
+                <div class="card">
+                    <div class="slide slide1">
+                        <div class="content">
+                            <div class="icon">
+                                <br><br><br>
+                                <h2 align="center">Accuracy</h2>
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide slide2">
+                        <div class="content">
+                            <p>SVM - 96.2%</p>
+                            <p>Naive Bayes - 94.8%</p>
+                            <p>BERT model - 92%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <center>
+        <div class="login">
+            <div>
+                FaKe News📰 PrEdIcToR
+            </div>
+            <br>
+            <form action="{{ url_for('predict')}}" method="POST">
+                <textarea name="message" rows="5" cols="30" required="required" style="font-size: 18pt"></textarea>
+                <br> </br>
+                <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+
+                <div class="results">
+
+                    {% if prediction == ['Fake']%}
+                    <h2 style="color:red;">Fake News ⚠️📰 </h2>
+                    {% elif prediction == ['TRUE']%}
+                    <h2 style="color:green;"><b>Real News📰</b></h2>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </center>
+    <br>
+    <div class="footer">
+        <center>
+            <div class="contain">
+                <div class="col">
+                    <h1>Under the Guidance of </h1>
+                    <ul>
+                        <li>Dr. K. Srividya</li>
+                        <li>Asst Professor</li>
+                        <li>Dept of CSE</li>
+                        <li>GMR insistute of technology</li>
+                        <li>Rajam</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h1>Team</h1>
+                    <ul>
+                        <li>U.V. Ram Mohan (19341A05H1) </li>
+                        <li>R. Sahitya (19341A05E6) </li>
+                        <li>S. Laxman Rao (19341A05F2) </li>
+                        <li>P. Ganesh (20345A0518) </li>
+                        <li>V.Anil Kumar (19341A05I7) </li>
+                    </ul>
+                </div>
+                <div class="col social">
+                    <h1>Social</h1>
+                    <ul>
+                        <a href="https://www.facebook.com/anilprabhas.voonna">
+                            <li><img src="https://svgshare.com/i/hbW.svg" width="32" style="width: 32px;"></li>
+                        </a>
+                        <li>
+                            <a href="https://www.linkedin.com/in/anilkumar-voonna-a1690a204"><img src="https://svgshare.com/i/hbf.svg" width="32" style="width: 32px;"></a>
+                        </li>
+                        <a href="https://instagram.com/anilprabhasvoonna?igshid=YmMyMTA2M2Y=">
+                            <li><img src="https://svgshare.com/i/haw.svg" width="32" style="width: 32px;"></li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </center>
+    </div>
+
+</html>
